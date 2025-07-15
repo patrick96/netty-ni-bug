@@ -9,6 +9,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("org.graalvm.buildtools.native") version "0.10.6"
 }
 
 repositories {
@@ -19,9 +20,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
-
-    // This dependency is used by the application.
-    implementation("com.google.guava:guava:30.1.1-jre")
+    implementation("io.netty:netty-all:4.2.2.Final")
 }
 
 application {
@@ -32,4 +31,13 @@ application {
 tasks.test {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+graalvmNative {
+    binaries.all {
+        // common options
+        verbose = true
+        quickBuild = true
+        debug = true
+    }
 }
